@@ -1,0 +1,56 @@
+body{
+    background: #f9f9f9;
+    font-size: 24px;
+    padding: 25px;
+}
+.container{
+    max-width: 960px;
+    margin: 0 auto;
+    
+}
+
+.p-bg-image{
+    background: url('img/Earth.jpg') no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 960px;
+    background-position: 50% 50%;
+    background-color: transparent;
+}
+
+.intro{
+    padding: 0;
+    z-index: 3;
+    margin-top: 30%;
+    margin-left: 30%;
+    text-align: center;
+    position: relative;
+    vertical-align: middle;
+    
+}
+
+.intro, .subtitle{
+    margin-bottom: -50px;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 45px;
+    text-shadow: 0 1px 2px rgba(0,0,0,.2);
+    line-height: 1.45;
+    z-index: 2;
+    
+}
+
+.intro, .title{
+    line-height: 1.2;
+    margin-bottom: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 0 1px 2px rgba(0,0,0,.2);
+    line-height: inherit;
+    font-weight: inherit;
+    font-size: 45px;
+    display: inline-block;
+    zoom: 1;
+    max-width: 100%;
+
+    
+}

@@ -1,0 +1,151 @@
+#include<iterator>
+
+#include "table2.h"
+
+using namespace std;
+
+namespace main_savitch_12B
+{
+#include<iterator>
+
+#include "table2.h"
+
+using namespace std;
+
+namespace main_savitch_12B
+{
+#include<iterator>
+
+#include "table2.h"
+
+using namespace std;
+
+namespace main_savitch_12B
+{
+	template <typename RecordType>
+	table<RecordType>::table()
+	{
+		 
+	}
+	
+	template <typename RecordType>
+	void table<RecordType>::insert(const RecordType& entry)
+	{
+		size_t key = 0;
+		key = hash(entry.key);
+		bool exists;
+		typename list<RecordType>::iterator ptr;
+		if(entry.key >= 0)
+		{
+			find_location(entry.key, exists, ptr);
+			if (!exists)
+			{
+				data[key].push_back(entry);
+			}
+			else
+			{
+				data[key].erase(ptr);
+				data[key].push_back(entry);
+			}
+		}
+	}
+	
+	template <typename RecordType>
+	void table<RecordType>::remove(int key)
+	{
+		typename list<RecordType>::iterator ptr;
+		bool find = false;
+		
+		if(is_present(key))
+		{
+			find_location(key,find, ptr);
+			if(find) data[key].erase(ptr);
+		}
+	}
+	
+	template <typename RecordType>
+	bool table<RecordType>::is_present(int key) const
+	{
+		typename std::list<RecordType>::iterator location;
+		bool find = false;
+		find_location(key,find, location);
+		return find;
+	}
+	
+	template <typename RecordType>
+	RecordType table<RecordType>::get_record(int key) const
+	{
+		RecordType ret;
+		typename std::list<RecordType>::iterator location;
+		bool found = false;
+		size_t pos;
+		location = data[pos].begin();
+		find_location(key,found,location,data[pos]);
+		if(found){
+			ret = data[pos][location];
+		}
+		return ret;
+	}
+	
+	template <typename RecordType>
+	std::size_t table<RecordType>::size() const
+	{
+		size_t answer = 0;
+		for(int i = 0; i < NUM_BUCKETS; i++)
+		{
+			if(data[i] != NULL)
+			{
+				answer += data[i].size();
+			}
+		}
+		return answer;
+	}
+	
+	
+	template <typename U>
+	inline std::ostream& operator <<(std::ostream& output, const table<U>& t)
+	{
+		typename list<U>::iterator it;
+		std::list<U> list;
+		
+		for (int i = 0; i < 10; i++)
+		{
+			list = t.data[i];
+			if (t.is_present(i))
+			{
+				for (it = list.begin(); it != list.end(); ++it)
+				{
+					output << *it << " ";
+				}
+			}
+		}
+	
+		return output;
+	}
+	
+	template <typename RecordType>
+	std::size_t table<RecordType>::hash(int key) const
+	{
+		return key % NUM_BUCKETS;
+	}
+	
+	template <typename RecordType>
+	void table<RecordType>::find_location(int key, bool& found,
+		typename std::list<RecordType>::iterator&
+		location)
+	{
+		size_t index = hash(key);
+		for (location = data[index].begin(); location != data[index].end(); location++)
+		{
+			if (location->key == key)
+			{
+				found = true;
+				return;			}
+				
+		}
+		found = false;
+	
+	
+	}
+}
+}

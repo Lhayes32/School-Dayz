@@ -1,0 +1,172 @@
+
+<!--
+  COLLABORATORS:
+  
+-->
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Word Finder</title>
+
+<!-- Load any supplemental Javascript libraries here -->
+<script type="text/javascript" src="jquery-1.5.min.js"></script>
+<script type="text/javascript" src="words-small.json"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- Uncomment this to get the full 45,407 word dictionary
+<script type="text/javascript" src="words-large.json"></script>
+ -->
+
+<script type="text/javascript" src="dictionary.js"></script>
+
+<script type="text/javascript">
+// <![CDATA[
+
+function GetFind(){
+  //var x = document.getElementById("find").value;
+  //str += "<option value=>" + dict.search(x) + "</option>";
+  //document.getElementById("words").innerHTML = str;
+  var select = document.getElementById("words")
+  //for(index in dict){
+  select.options[select.options.length] = new Option("Hi", 0);
+  //}
+}
+
+
+
+// This allows the Javascript code inside this block to only run when the page
+// has finished loading in the browser.
+$(document).ready(function() {
+  var dict = new Dictionary(words);
+  var SMax = dict.size();
+  var SCurrent = SMax;
+  var list = dict.all();
+	// Your code here
+  var select = document.getElementById("words");
+
+  for(index in list){
+          select.options[select.options.length] = new Option(list[index], index);
+  }
+  
+  document.getElementById("wordLabel").innerHTML = SMax + " words total";
+
+  document.getElementById("iFind").oninput = function(){
+    if(document.getElementById("iFind").value == ""){
+        SCurrent = SMax;
+        document.getElementById("wordLabel").innerHTML = SMax + " words total";
+        select.options.length = 0;
+        list = dict.all();
+
+        for(index in list){
+          select.options[select.options.length] = new Option(list[index], index);
+        }
+
+    }
+
+    else if(SCurrent <= SMax && SCurrent > 1 || SCurrent == 0){
+      list = dict.search(document.getElementById("iFind").value);
+      SCurrent = list.length;
+      document.getElementById("wordLabel").innerHTML = SCurrent + " words total";
+      select.options.length = 0;
+      for(index in list){
+          select.options[select.options.length] = new Option(list[index], index);
+      }
+    }
+
+  }
+
+  document.getElementById("bClear").onclick = function(){
+    document.getElementById("iFind").value = "";
+    
+    SCurrent = SMax;
+    document.getElementById("wordLabel").innerHTML = SMax + " words total";
+    select.options.length = 0;
+    list = dict.all();
+    for(index in list){
+          select.options[select.options.length] = new Option(list[index], index);
+    }
+
+  }
+
+});
+
+
+
+
+// ]]>
+</script>
+
+<style type="text/css">
+
+/* Your CSS here */
+body{
+    background-color: #eee;
+    width: 100%;
+    height: 100%;
+}
+
+#find-div{
+  margin-top: 20px;
+  margin-left: 30px;
+}
+
+#select-div{
+  margin-left: 60px;
+  margin-top: 20px;
+}
+
+#words{
+  height: 300px;
+}
+
+#words, #words option{
+  
+  width:350px; 
+}
+
+label, select{
+  display:block;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="form-inline d-flex justify-content-center md-form form-sm mt-0" id="find-div">
+      <p style= "display: inline-block; margin-right: 10px;">
+          Find:
+      </p>
+      <input  type="text" id="iFind" size = "40">
+      <button  id="bClear" style= "margin-right: 20px; margin-left:20px;">Clear</button>
+</div>
+
+<div class="form-inline d-flex justify-content-center md-form form-sm mt-0 form-group col-xs-4 col-md-4" id="select-div">
+      <label  for="words" id="wordLabel" class="control-label"></label>
+      <select size=2 id="words" class="form-control multiple w-75" style="height: 50vh; width: 43vh;">
+
+      </select>
+    
+      
+</div>
+
+</body>
+
+<script>
+  document.getElementById("app").innerHTML= "Hello, two plus two equals ${2 + 2} and it always will."
+</script>
+
+</html>
